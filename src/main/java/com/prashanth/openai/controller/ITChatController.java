@@ -7,17 +7,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
-public class ChatController {
+@RequestMapping("/api/it")
+public class ITChatController {
 
-    private final ChatClient chatClient;
+    private final ChatClient itChatClient;
 
-    public ChatController(ChatClient.Builder chatClientBuilder) {
-        this.chatClient = chatClientBuilder.build();
+    public ITChatController(ChatClient itChatClient) {
+        this.itChatClient = itChatClient;
     }
 
     @GetMapping("/chat")
-    public String chat(@RequestParam("message") String message) {
-        return chatClient.prompt(message).call().content();
+    public String itChat(@RequestParam("message") String message) {
+        return itChatClient
+                .prompt()
+                .user(message)
+                .call().content();
     }
 }
